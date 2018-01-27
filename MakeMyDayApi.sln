@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeMyDayApi", "MakeMyDayApi\MakeMyDayApi.csproj", "{1D64EB87-4FB6-493D-9CC8-12B9C3F79F8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeMyDayApi.Tests", "MakeMyDayApi.Tests\MakeMyDayApi.Tests.csproj", "{E79577E0-8B63-4275-9629-1DE2AC574D95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D64EB87-4FB6-493D-9CC8-12B9C3F79F8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D64EB87-4FB6-493D-9CC8-12B9C3F79F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D64EB87-4FB6-493D-9CC8-12B9C3F79F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D64EB87-4FB6-493D-9CC8-12B9C3F79F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2F64A93-7DAA-4F54-9375-C0E90F13FC0E}
+	EndGlobalSection
+EndGlobal
