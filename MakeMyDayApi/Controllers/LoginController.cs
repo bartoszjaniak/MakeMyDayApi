@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MakeMyDayApi.Models;
+using MakeMyDayApi.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -27,8 +29,14 @@ namespace MakeMyDayApi.Controllers
         }
 
         // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
+        public string Put(int id, [FromBody]Account account)
         {
+            var userValid = account.LoginValid();
+
+            if (userValid)
+                return $"Zalogowano, token: {SesionAuth.GetNewToken()}";
+            else
+                return "Błędne dane logowania";
         }
 
         // DELETE: api/Login/5

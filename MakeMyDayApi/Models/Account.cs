@@ -18,6 +18,13 @@ namespace MakeMyDayApi.Models
         public string Password { get; }
         public Guid Guid { get; }
 
+        public Account(DataBase.Accounts account)
+        {
+            this.Login = account.Login;
+            this.Password = account.Password.ToString();
+            if(account.Guid != null) 
+                this.Guid = Guid.Parse(account.Guid);
+        }
 
         //public CreateStatus Account(string login, string password)
         //{
@@ -36,7 +43,12 @@ namespace MakeMyDayApi.Models
         public bool LoginValid()
         {
             //TODO: check in database if user is exists and check password
-            return true;
+            if (this.Guid != null)
+                return Services.DataServices.AccountServices.LoginWithGuid(this.Guid);
+
+            return false;
         }
+
+        
     }
 }
