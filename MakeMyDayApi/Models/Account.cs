@@ -6,49 +6,36 @@ using System.Web;
 namespace MakeMyDayApi.Models
 {
     public class Account
-    {
-        public enum CreateStatus
-        {
-            OK,
-            EXISTS,
-            ERROR
-        };
+    {      
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public Guid Guid { get; set;  }
 
-        public string Login { get; }
-        public string Password { get; }
-        public Guid Guid { get; }
+        public Account(string login, string password)
+        {
+            Login = login;
+            Password = password;
+            Guid = GenerateSuperToken();
+        }
+
+        public Account(string login, string password, string guid)
+        {
+            Login = login;
+            Password = password;
+            Guid = new Guid(guid);
+        }
 
         public Account(DataBase.Accounts account)
         {
             this.Login = account.Login;
             this.Password = account.Password.ToString();
-            if(account.Guid != null) 
+            if (account.Guid != null)
                 this.Guid = Guid.Parse(account.Guid);
         }
 
-        //public CreateStatus Account(string login, string password)
-        //{
-        //    Login = login;
-        //    Password = password;
-        //    SuperToken = GenerateSuperToken();
-
-        //    return CreateStatus.OK;
-        //}
-
-        private string GenerateSuperToken()
+        private Guid GenerateSuperToken()
         {
-            return Guid.NewGuid().ToString();
-        }
-
-        public bool LoginValid()
-        {
-            //TODO: check in database if user is exists and check password
-            if (this.Guid != null)
-                return Services.DataServices.AccountServices.LoginWithGuid(this.Guid);
-
-            return false;
-        }
-
-        
+            return Guid.NewGuid();
+        } 
     }
 }

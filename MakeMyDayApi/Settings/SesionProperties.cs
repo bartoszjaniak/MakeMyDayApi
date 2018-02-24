@@ -7,7 +7,7 @@ namespace MakeMyDayApi.Settings
 {
     public static class SessionProperties
     {
-        public const int SessionTimeInSecound = 60;
+        public const int SessionTimeInSecound = 120;
         public const int MaximumUsers = 9999999;
 
     }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MakeMyDayApi.Services
 {
-    public static class SesionAuth
+    public static class SesionAuthService
     {
         private static TokenList TokenList = new TokenList();
 

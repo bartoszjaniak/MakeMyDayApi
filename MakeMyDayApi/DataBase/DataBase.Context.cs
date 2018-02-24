@@ -13,9 +13,9 @@ namespace MakeMyDayApi.DataBase
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataConext : DbContext
+    public partial class bjaniak_makemydayEntities : DbContext
     {
-        public DataConext()
+        public bjaniak_makemydayEntities()
             : base("name=bjaniak_makemydayEntities")
         {
         }

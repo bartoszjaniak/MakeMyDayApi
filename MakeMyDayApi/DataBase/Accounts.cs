@@ -13,9 +13,9 @@ namespace MakeMyDayApi.DataBase
     using System.Collections.Generic;
     
     public partial class Accounts
-    {
+    {       
         public string Guid { get; set; }
         public string Login { get; set; }
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
     }
 }
