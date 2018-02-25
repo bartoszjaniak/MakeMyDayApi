@@ -8,7 +8,7 @@ namespace MakeMyDayApi.Repositories
 {
     public static class AccountRepositories
     {
-        public static Account GetAccountByGuid(Guid guid)
+        public static Account GetAccountByGuid(string guid)
         {
             using (var db = new DataBase.bjaniak_makemydayEntities())
             {

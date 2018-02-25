@@ -9,7 +9,12 @@ namespace MakeMyDayApi.Models
     {      
         public string Login { get; set; }
         public string Password { get; set; }
-        public Guid Guid { get; set;  }
+        public string Guid { get; set;  }
+
+        public Account()
+        {
+
+        }
 
         public Account(string login, string password)
         {
@@ -22,20 +27,23 @@ namespace MakeMyDayApi.Models
         {
             Login = login;
             Password = password;
-            Guid = new Guid(guid);
+            Guid = guid;
         }
 
         public Account(DataBase.Accounts account)
         {
-            this.Login = account.Login;
-            this.Password = account.Password.ToString();
-            if (account.Guid != null)
-                this.Guid = Guid.Parse(account.Guid);
+            if (account != null)
+            {
+                this.Login = account.Login;
+                this.Password = account.Password.ToString();
+                if (account.Guid != null)
+                    Guid = account.Guid;
+            }
         }
 
-        private Guid GenerateSuperToken()
-        {
-            return Guid.NewGuid();
+        private string GenerateSuperToken()
+        {            
+            return System.Guid.NewGuid() .ToString();
         } 
     }
 }
