@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace MakeMyDayApi.Models
 {
     public class Account
@@ -30,7 +26,7 @@ namespace MakeMyDayApi.Models
             Guid = guid;
         }
 
-        public Account(DataBase.Accounts account)
+        public Account(MakeMyDayDataBase.Accounts account)
         {
             if (account != null)
             {

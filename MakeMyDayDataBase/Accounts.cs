@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MakeMyDayApi.DataBase
+namespace MakeMyDayDataBase
 {
     using System;
     using System.Collections.Generic;

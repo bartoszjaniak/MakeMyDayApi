@@ -12,13 +12,18 @@ namespace MakeMyDayApi.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Accounts
+    public partial class Groups
     {
-        public int Person { get; set; }
-        public string Guid { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Groups()
+        {
+            this.Persons = new HashSet<Persons>();
+        }
     
-        public virtual Persons Persons { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Persons> Persons { get; set; }
     }
 }

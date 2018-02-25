@@ -10,7 +10,7 @@ namespace MakeMyDayApi.Repositories
     {
         public static Account GetAccountByGuid(string guid)
         {
-            using (var db = new DataBase.bjaniak_makemydayEntities())
+            using (var db = new MakeMyDayDataBase.bjaniak_makemydayEntities())
             {
                 return new Account(db.Accounts.Where(A => A.Guid.Equals(guid)).Select(A => A).FirstOrDefault());
             }
@@ -18,7 +18,7 @@ namespace MakeMyDayApi.Repositories
 
         public static Account GetAccountByAccesData(AccesData accesData)
         {
-            using (var db = new DataBase.bjaniak_makemydayEntities())
+            using (var db = new MakeMyDayDataBase.bjaniak_makemydayEntities())
             {
                 var dbAccount = db.Accounts.Where(A => A.Login.Equals(accesData.Login) && A.Password.Equals(accesData.Password)).Select(A => A).FirstOrDefault();
                 if(dbAccount != null)
@@ -30,7 +30,7 @@ namespace MakeMyDayApi.Repositories
 
         public static Account CreateAccount(AccesData accesData)
         {
-            using (var db = new DataBase.bjaniak_makemydayEntities())
+            using (var db = new MakeMyDayDataBase.bjaniak_makemydayEntities())
             {
           
                 if (!db.Accounts.Where(A => A.Login.Equals(accesData.Login)).Any())
@@ -40,7 +40,7 @@ namespace MakeMyDayApi.Repositories
                         account = new Account(accesData.Login, accesData.Password);
                     } while (!db.Accounts.Where(A => A.Guid.Equals(account.Guid.ToString())).Any())
 
-                    db.Accounts.Add(new DataBase.Accounts() { Login = account.Login, Password = account.Password, Guid = account.Guid.ToString() });
+                    db.Accounts.Add(new MakeMyDayDataBase.Accounts() { Login = account.Login, Password = account.Password, Guid = account.Guid.ToString() });
                     db.SaveChanges();
                     return account;
                 }
