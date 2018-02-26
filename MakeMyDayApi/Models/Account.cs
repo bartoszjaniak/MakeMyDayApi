@@ -24,18 +24,7 @@ namespace MakeMyDayApi.Models
             Login = login;
             Password = password;
             Guid = guid;
-        }
-
-        public Account(MakeMyDayDataBase.Accounts account)
-        {
-            if (account != null)
-            {
-                this.Login = account.Login;
-                this.Password = account.Password.ToString();
-                if (account.Guid != null)
-                    Guid = account.Guid;
-            }
-        }
+        }       
 
         private string GenerateSuperToken()
         {            

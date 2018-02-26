@@ -9,10 +9,12 @@ namespace MakeMyDayApi.Services
 {
     public static class AccountService
     {
-        public static Account LoginWithGuid(string guid) => AccountRepositories.GetAccountByGuid(guid);
+        public static Account GetAccountByGuid(string guid) => AccountRepositories.GetAccountByGuid(guid);
 
-        public static Account LoginWithAccesData(AccesData accesData) => AccountRepositories.GetAccountByAccesData(accesData);
+        public static Account GetAccountByAccesData(AccesData accesData) => AccountRepositories.GetAccountByAccesData(accesData);
 
         public static Account CreateAccount(AccesData accesData) => AccountRepositories.CreateAccount(accesData);
+
+        public static void Test() => AccountRepositories.Test();
     }
 }

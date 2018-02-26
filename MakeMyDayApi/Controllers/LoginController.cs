@@ -27,32 +27,42 @@ namespace MakeMyDayApi.Controllers
         }
 
 
-        public string Login([FromBody]Account account)
+        public Account Login([FromBody]Account loginData)
         {
             if (ModelState.IsValid)
             {
-                if(!string.IsNullOrEmpty(account.Login) && !string.IsNullOrEmpty(account.Password))
-                    if (AccountService.LoginWithAccesData(new AccesData() { Login = account.Login, Password = account.Password }) != null)
-                        return $"Zalogowano, token: {SesionAuthService.GetNewToken()}";
+                if (!string.IsNullOrEmpty(loginData.Login) && !string.IsNullOrEmpty(loginData.Password)) {
+                    var account = AccountService.GetAccountByAccesData(new AccesData() { Login = loginData.Login, Password = loginData.Password });
+                    if (account != null)
+                        return account;
+                }
 
-                if (account.Guid != null)
-                    if (AccountService.LoginWithGuid(account.Guid) != null)
-                        return $"Zalogowano, token: {SesionAuthService.GetNewToken()}";
+                if (loginData.Guid != null)
+                {
+                    var account = AccountService.GetAccountByGuid(loginData.Guid);
+                    if (account != null)
+                        return account;
+                }
             }
-            return "Błędne dane logowania";
+            return null;
         }
 
-        public string CreateAccount([FromBody]AccesData accesData)
+        public Account CreateAccount([FromBody]AccesData accesData)
         {
             try
             {
                 Account account = AccountService.CreateAccount(accesData);
-                return account.Guid.ToString();
+                return account;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return null;
             }
+        }
+
+        public void Test()
+        {
+            AccountService.Test();
         }
 
         // PUT: api/Login/5

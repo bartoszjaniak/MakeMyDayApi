@@ -8,55 +8,31 @@ namespace MakeMyDayApi.Services
 {
     public static class SesionAuthService
     {
-        private static TokenList TokenList = new TokenList();
-
-        public static Token GetNewToken()
-        {
-            return GenerateTokenAndCleerTokenList();
+        private static TokenList _tokenList = new TokenList();
+        
+        public static void AddUserToSesion(Account account)
+        {           
+            if (_tokenList.Contains(account.Guid))
+            {
+                _tokenList.RenowExpirationTime(account.Guid);
+            }
+            else
+            {
+                _tokenList.Add(account.Guid);
+            }
         }
 
-        public static bool CheckTokenValidAndReneweExpirationTime(Token token)
+        public static bool CheckIfUserIsLoggedAndRenowExpirationTime(string token)
         {
-            if (TokenList.Contains(token))
+            if (_tokenList.Contains(token))
             {
-                RenowExpirationTime(token);
+                _tokenList.RenowExpirationTime(token);
                 return true;
             }
+
             return false;
         }
 
-
-
-        public static int AcctualUserCount()
-        {
-            return TokenList.Count();
-            //return CleanerIsRunning ? 1 : 0;
-        }
-
-        private static Token GenerateTokenAndCleerTokenList()
-        {
-            Token generatedToken;
-
-            do
-            {
-                generatedToken = new Token();
-            } while (TokenList.Contains(generatedToken));
-
-            AddNewTokenToTokenList(generatedToken);
-
-            return generatedToken;
-        }
-
-        private static void AddNewTokenToTokenList(Token token)
-        {
-            TokenList.Add(token);
-        }
-
-        private static void RenowExpirationTime(Token token)
-        {
-            token.RenowExpirationTime();
-        }
-
-
+        public static int AcctualUserCount() => _tokenList.Count();
     }
 }

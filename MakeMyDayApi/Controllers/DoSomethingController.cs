@@ -19,14 +19,26 @@ namespace MakeMyDayApi.Controllers
         // GET: api/DoSomething/5
         public string Get(string id)
         {
-            if (SesionAuthService.CheckTokenValidAndReneweExpirationTime(new Models.Token(id)))
-                return $"Aktualna liczba użytkowników: {SesionAuthService.AcctualUserCount()}";
-            else
+            //if (SesionAuthService.CheckTokenValidAndReneweExpirationTime(new Models.Token(id)))
+            //    return $"Aktualna liczba użytkowników: {SesionAuthService.AcctualUserCount()}";
+            //else
                 return "Nie zalogowano";
         }
 
-        // POST: api/DoSomething
-        public void Post([FromBody]string value)
+        public string DoSomething([FromBody]string token)
+        {
+            if (SesionAuthService.CheckIfUserIsLoggedAndRenowExpirationTime(token))
+            {
+                return $"Jesteś zalogowany wśród {SesionAuthService.AcctualUserCount()} użytkowników";
+            }
+            else
+                return "Nie jesteś zalogowany";
+
+        }
+
+
+            // POST: api/DoSomething
+            public void Post([FromBody]string value)
         {
         }
 

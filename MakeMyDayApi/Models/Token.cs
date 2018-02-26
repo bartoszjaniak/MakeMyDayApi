@@ -30,7 +30,7 @@ namespace MakeMyDayApi.Models
         }
 
 
-        public bool CheckExpirationTime()
+        public bool IsOverdue()
         {
             if (DeadTime > DateTime.Now)
                 return true;

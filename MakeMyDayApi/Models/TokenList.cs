@@ -18,9 +18,9 @@ namespace MakeMyDayApi.Models
             CleanerIsRunning = false;
         }
 
-        public void Add(Token token)
+        public void Add(string token)
         {
-            Tokens.Add(token);
+            Tokens.Add(new Token(token));
             RunCleaner();
         }
 
@@ -28,15 +28,15 @@ namespace MakeMyDayApi.Models
         {
             return Tokens.Count();
         }
-
-        public bool Contains(Token token)
-        {
-            return Tokens.Contains(token);
-        }
-
+               
         public bool Contains(string tokenString)
         {
             return Tokens.Exists(A => A.Value.ToString() == tokenString);
+        }
+
+        public void RenowExpirationTime(string tokenString)
+        {
+            Tokens.Where(A => A.Value.ToString() == tokenString).First().RenowExpirationTime(); 
         }
 
         private void RunCleaner()
@@ -59,7 +59,7 @@ namespace MakeMyDayApi.Models
                 if (Tokens.Count > SessionProperties.MaximumUsers)
                     Tokens.OrderByDescending(A => A.DeadTime).ToList().RemoveRange(SessionProperties.MaximumUsers, 100);
                 CleanerIsRunning = Tokens.Count > 0;
-                Thread.Sleep(1000);
+                Thread.Sleep(5000);
             }
         }
 
