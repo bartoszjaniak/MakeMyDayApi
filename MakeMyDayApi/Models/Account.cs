@@ -6,6 +6,7 @@ namespace MakeMyDayApi.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string Guid { get; set;  }
+        public User User { get; set; }
 
         public Account()
         {
@@ -16,7 +17,7 @@ namespace MakeMyDayApi.Models
         {
             Login = login;
             Password = password;
-            Guid = GenerateSuperToken();
+            Guid = GenerateGuid();
         }
 
         public Account(string login, string password, string guid)
@@ -26,7 +27,7 @@ namespace MakeMyDayApi.Models
             Guid = guid;
         }       
 
-        private string GenerateSuperToken()
+        private string GenerateGuid()
         {            
             return System.Guid.NewGuid() .ToString();
         } 

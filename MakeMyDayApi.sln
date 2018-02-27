@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeMyDayApi", "MakeMyDayAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeMyDayApi.Tests", "MakeMyDayApi.Tests\MakeMyDayApi.Tests.csproj", "{E79577E0-8B63-4275-9629-1DE2AC574D95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poligon", "Poligon\Poligon.csproj", "{9133BFCF-2D79-482A-A86A-4377872DF961}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E79577E0-8B63-4275-9629-1DE2AC574D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9133BFCF-2D79-482A-A86A-4377872DF961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9133BFCF-2D79-482A-A86A-4377872DF961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9133BFCF-2D79-482A-A86A-4377872DF961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9133BFCF-2D79-482A-A86A-4377872DF961}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

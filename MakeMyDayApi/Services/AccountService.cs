@@ -13,8 +13,7 @@ namespace MakeMyDayApi.Services
 
         public static Account GetAccountByAccesData(AccesData accesData) => AccountRepositories.GetAccountByAccesData(accesData);
 
-        public static Account CreateAccount(AccesData accesData) => AccountRepositories.CreateAccount(accesData);
-
-        public static void Test() => AccountRepositories.Test();
+        public static Account CreateAccount(Account account) => AccountRepositories.CreateAccount(account);
+     
     }
 }

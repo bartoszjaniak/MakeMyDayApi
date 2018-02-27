@@ -47,24 +47,19 @@ namespace MakeMyDayApi.Controllers
             return null;
         }
 
-        public Account CreateAccount([FromBody]AccesData accesData)
+        public Account CreateAccount([FromBody]Account account)
         {
             try
             {
-                Account account = AccountService.CreateAccount(accesData);
-                return account;
+                Account newAccount = AccountService.CreateAccount(account);
+                return newAccount;
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
-
-        public void Test()
-        {
-            AccountService.Test();
-        }
-
+      
         // PUT: api/Login/5
         public void Put(int id, [FromBody]string accountS)
         {
