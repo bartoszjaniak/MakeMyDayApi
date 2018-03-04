@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 
 namespace MakeMyDayApi.Repositories
@@ -19,7 +20,7 @@ namespace MakeMyDayApi.Repositories
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
                     sqlCon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Persons p on p.ID = acc.Person WHERE acc.Guid = @guid", sqlCon);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Users p on p.ID = acc.Person WHERE acc.Guid = @guid", sqlCon);
                     sqlCommand.Parameters.AddWithValue("@guid", guid);                    
 
                     var reader = sqlCommand.ExecuteReader();
@@ -50,7 +51,7 @@ namespace MakeMyDayApi.Repositories
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Persons p on p.ID = acc.Person WHERE acc.Login = @login AND acc.Password = @password", sqlCon);
+                SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Users p on p.ID = acc.Person WHERE acc.Login = @login AND acc.Password = @password", sqlCon);
                 sqlCommand.Parameters.AddWithValue("@Login", accesData.Login);
                 sqlCommand.Parameters.AddWithValue("@Password", accesData.Password);
 
@@ -79,44 +80,69 @@ namespace MakeMyDayApi.Repositories
         public static Account CreateAccount(Account account)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
-            {
-                account.User.InviteKey = RandomInviteKey();
+            {        
                 sqlCon.Open();
-                string command = @"
-                    INSERT INTO Persons (Name, Lastname, Invitekey)
+                using (var trans = sqlCon.BeginTransaction())
+                {
+                    bool isOk = true;
+                    string command;
+                    SqlCommand sqlCommand3;
+                    do
+                    {
+                        account.User.InviteKey = RandomInviteKey();
+
+                        command = @"SELECT * FROM Users WHERE Invitekey = @invitekey";
+                        sqlCommand3 = new SqlCommand(command, sqlCon, trans);
+                        sqlCommand3.Parameters.AddWithValue("@invitekey", account.User.InviteKey);
+
+                        var reader3 = sqlCommand3.ExecuteReader();
+                        while (reader3.Read())
+                        {
+                            isOk = false;
+                        }
+                        reader3.Close();
+                    } while (!isOk);
+
+                    command = @"
+                    INSERT INTO Users (Name, Lastname, Invitekey)
                     OUTPUT Inserted.Id
                     VALUES (@name, @lastname, @invitekey);";
-                
-                SqlCommand sqlCommand = new SqlCommand(command, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@name", account.User.Name);
-                sqlCommand.Parameters.AddWithValue("@lastname", account.User.Lastname);
-                sqlCommand.Parameters.AddWithValue("@invitekey", account.User.InviteKey);
 
-                var reader = sqlCommand.ExecuteReader();      
-                while (reader.Read())
-                {
-                    account.User.Id = int.Parse(reader[0].ToString());                    
-                }
+                    SqlCommand sqlCommand = new SqlCommand(command, sqlCon, trans);
+                    sqlCommand.Parameters.AddWithValue("@name", account.User.Name);
+                    sqlCommand.Parameters.AddWithValue("@lastname", account.User.Lastname);
+                    sqlCommand.Parameters.AddWithValue("@invitekey", account.User.InviteKey);
 
-                 command = @"
-                    SET IDENTITY_INSERT Accounts ON;
+
+                    var reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        account.User.Id = int.Parse(reader[0].ToString());
+                    }
+                    reader.Close();
+
+                    command = @"                   
                     INSERT INTO Accounts (Person, Guid, Login, Password) 
                     OUTPUT Inserted.Guid
-                    VALUES (@personId, NEWID(), @login, @password);
-                    SET IDENTITY_INSERT Accounts OFF";
+                    VALUES (@personId, NEWID(), @login, @password);";
 
-                sqlCommand = new SqlCommand(command, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@personId", account.User.Id);     
-                sqlCommand.Parameters.AddWithValue("@login", account.Login);
-                sqlCommand.Parameters.AddWithValue("@password", account.Password);
+                    SqlCommand sqlCommand2 = new SqlCommand(command, sqlCon, trans);
+                    sqlCommand2.Parameters.AddWithValue("@personId", account.User.Id);
+                    sqlCommand2.Parameters.AddWithValue("@login", account.Login);
+                    sqlCommand2.Parameters.AddWithValue("@password", account.Password);
 
-                reader = sqlCommand.ExecuteReader();
-               
-                while (reader.Read())
-                {
-                    account.Guid = reader[0].ToString();
+                    var reader2 = sqlCommand2.ExecuteReader();
+
+                    while (reader2.Read())
+                    {
+                        account.Guid = reader2[0].ToString();
+                    }
+                    reader2.Close();
+
+                    trans.Commit();
                 }
             }
+            
             return account;
         }
 
