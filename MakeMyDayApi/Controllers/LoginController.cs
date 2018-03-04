@@ -34,14 +34,20 @@ namespace MakeMyDayApi.Controllers
                 if (!string.IsNullOrEmpty(loginData.Login) && !string.IsNullOrEmpty(loginData.Password)) {
                     var account = AccountService.GetAccountByAccesData(new AccesData() { Login = loginData.Login, Password = loginData.Password });
                     if (account != null)
-                        return account;
+                    {
+                        SesionAuthService.AddUserToSesion(account);
+                        return account;                        
+                    }
                 }
 
                 if (loginData.Guid != null)
                 {
                     var account = AccountService.GetAccountByGuid(loginData.Guid);
                     if (account != null)
+                    {
+                        SesionAuthService.AddUserToSesion(account);
                         return account;
+                    }
                 }
             }
             return null;

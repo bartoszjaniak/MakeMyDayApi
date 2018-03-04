@@ -29,7 +29,15 @@ namespace MakeMyDayApi.Services
                 _tokenList.RenowExpirationTime(token);
                 return true;
             }
+            else {
 
+                var account = AccountService.GetAccountByGuid(token);
+                if(account != null)
+                {
+                    _tokenList.Add(account.Guid);
+                    return true;
+                }                
+            }
             return false;
         }
 
