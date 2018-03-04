@@ -1,5 +1,6 @@
 ﻿using MakeMyDayApi.Settings;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -28,7 +29,7 @@ namespace MakeMyDayApi.Models
         {
             return Tokens.Count();
         }
-               
+
         public bool Contains(string tokenString)
         {
             return Tokens.Exists(A => A.Value.ToString() == tokenString);
@@ -63,6 +64,6 @@ namespace MakeMyDayApi.Models
             }
         }
 
-
+        
     }
 }

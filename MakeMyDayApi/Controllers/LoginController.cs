@@ -54,10 +54,15 @@ namespace MakeMyDayApi.Controllers
                 Account newAccount = AccountService.CreateAccount(account);
                 return newAccount;
             }
+            catch(System.Data.SqlClient.SqlException ex)
+            {
+                return null;
+            }
             catch (Exception ex)
             {
                 return null;
             }
+            
         }
       
         // PUT: api/Login/5

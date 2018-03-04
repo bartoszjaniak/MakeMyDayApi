@@ -8,24 +8,13 @@ namespace MakeMyDayApi.Models
 {
     public class Token
     {
-        public Guid Value { get; private set; }
+        public string Value { get; private set; }
         public DateTime DeadTime { get; private set; }
 
-        public Token()
-        {
-            Value = System.Guid.NewGuid();
-            DeadTime = DateTime.Now.AddSeconds(SessionProperties.SessionTimeInSecound);
-        }
-
-        public Token(Guid token)
-        {
-            Value = token;
-            DeadTime = DateTime.Now.AddSeconds(SessionProperties.SessionTimeInSecound);
-        }
-
+        
         public Token(string token)
         {
-            Value = Guid.Parse(token);
+            Value = token;
             DeadTime = DateTime.Now.AddSeconds(SessionProperties.SessionTimeInSecound);
         }
 
@@ -54,11 +43,6 @@ namespace MakeMyDayApi.Models
             hash = (hash * 7) + Value.GetHashCode();
             hash = (hash * 7) + DeadTime.GetHashCode();
             return hash;
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
+        }      
     }
 }

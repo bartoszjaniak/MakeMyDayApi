@@ -27,11 +27,11 @@ namespace MakeMyDayApi.Controllers
 
         public string DoSomething([FromBody]string token)
         {
-            if (SesionAuthService.CheckIfUserIsLoggedAndRenowExpirationTime(token))
-            {
-                return $"Jesteś zalogowany wśród {SesionAuthService.AcctualUserCount()} użytkowników";
-            }
-            else
+            //if (SesionAuthService.CheckIfUserIsLoggedAndRenowExpirationTime(token))
+            //{
+            //    return $"Jesteś zalogowany wśród {SesionAuthService.AcctualUserCount()} użytkowników";
+            //}
+            //else
                 return "Nie jesteś zalogowany";
 
         }
