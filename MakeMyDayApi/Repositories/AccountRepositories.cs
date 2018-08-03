@@ -20,7 +20,7 @@ namespace MakeMyDayApi.Repositories
                 using (SqlConnection sqlCon = new SqlConnection(connectionString))
                 {
                     sqlCon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Users p on p.ID = acc.Person WHERE acc.Guid = @guid", sqlCon);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Persons p on p.ID = acc.Person WHERE acc.Guid = @guid", sqlCon);
                     sqlCommand.Parameters.AddWithValue("@guid", guid);                    
 
                     var reader = sqlCommand.ExecuteReader();
@@ -51,7 +51,7 @@ namespace MakeMyDayApi.Repositories
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Users p on p.ID = acc.Person WHERE acc.Login = @login AND acc.Password = @password", sqlCon);
+                SqlCommand sqlCommand = new SqlCommand("SELECT acc.Login, acc.Password, acc.Guid, p.ID, p.Name, p.Lastname, p.InviteKey FROM Accounts acc JOIN Persons p on p.ID = acc.Person WHERE acc.Login = @login AND acc.Password = @password", sqlCon);
                 sqlCommand.Parameters.AddWithValue("@Login", accesData.Login);
                 sqlCommand.Parameters.AddWithValue("@Password", accesData.Password);
 

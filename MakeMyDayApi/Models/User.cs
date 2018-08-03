@@ -11,8 +11,7 @@ namespace MakeMyDayApi.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
-        public string InviteKey { get; set; }
-              
+        public string InviteKey { get; set; }             
        
     }
 }
